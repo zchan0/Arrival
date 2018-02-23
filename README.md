@@ -1,5 +1,9 @@
 # MyReads
 
+MyReads is a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read. This project is a demo emphasizing on how to use React to build the application, especially on the state management. 
+
+![Screenshot](https://i.imgur.com/KCosZvw.png)
+
 ## TL;DR
 
 To get started developing right away:
@@ -20,7 +24,10 @@ To get started developing right away:
     ├── App.css # Styles for app.
     ├── App.js # This is the root of app.
     ├── App.test.js # Used for testing. Provided with Create React App.
+    ├── BookShelf.js
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── ListBooks.js
+    ├── SearchBooks.js
     ├── icons # Helpful images
     │   ├── add.svg
     │   ├── arrow-back.svg
