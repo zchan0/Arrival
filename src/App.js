@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { Message } from 'element-react';
 import ListBooks from './ListBooks';
 import SearchBooks from './SearchBooks';
@@ -11,28 +11,35 @@ class BooksApp extends Component {
     books: []
   }
 
-  changeShelf = (bookId, shelf) => {
+  changeShelf = (book, shelf) => {
     let oldShelf;
-    let books = this.state.books.map(book => {
-      if (book.id === bookId) {
-        oldShelf = book.shelf;
-        book.shelf = shelf;
+    let books = this.state.books.map(b => {
+      if (b.id === book.id) {
+        oldShelf = b.shelf;
+        b.shelf = shelf;
       }
-      return book;
+      return b;
     });
+
+    // add new book
+    if (!oldShelf && !book.shelf) {
+      book.shelf = shelf;
+      books.push(book);
+    }
 
     // for better user experience, update UI first, and then call API
     this.setState({ books });
-    BooksAPI.update(bookId, shelf).then(() => {
+    BooksAPI.update(book.id, shelf).then(() => {
       Message.success('Updated success');
     })
     .catch(e => {
       Message.error('Failed to update');
       console.log('error: failed to update due to ' + e);
 
-      books = books.map(book => {
-        if (book.id === bookId) book.shelf = oldShelf;
-        return book;
+      books = books.map(b => {
+        // reset
+        if (book.id === b.id) b.shelf = oldShelf;
+        return b;
       });
       this.setState({ books });
     });
@@ -51,8 +58,11 @@ class BooksApp extends Component {
           <ListBooks allBooks={this.state.books} onChangeShelf={this.changeShelf} />
         )} />
         <Route path="/search" render={() => (
-          <SearchBooks />
+          <SearchBooks onChangeShelf={this.changeShelf} />
         )} />
+        <div className="open-search">
+          <Link to="/search">Add a book</Link>
+        </div>
       </div>
     )
   }

@@ -16,7 +16,7 @@ class BookShelf extends Component {
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }} />
                       <div className="book-shelf-changer">
-                        <select value={book.shelf} onChange={(e) => { onChangeShelf(book.id, e.target.value); }}>
+                        <select value={book.shelf || 'none'} onChange={(e) => { onChangeShelf(book, e.target.value); }}>
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
@@ -25,8 +25,12 @@ class BookShelf extends Component {
                         </select>
                       </div>
                     </div>
-                    <div className="book-title">{book.title + (book.subtitle ? `: ${book.subtitle}` : '')}</div>
-                    <div className="book-authors">{book.authors.toString()}</div>
+                    {book.title && (
+                      <div className="book-title">{book.title + (book.subtitle ? `: ${book.subtitle}` : '')}</div>
+                    )}
+                    {book.authors && (
+                      <div className="book-authors">{book.authors.toString()}</div>
+                    )}
                   </div>
                 </li>
               )
