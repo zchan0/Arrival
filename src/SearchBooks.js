@@ -35,8 +35,17 @@ class SearchBooks extends Component {
   }
 
   render() {
-    const { onChangeShelf } = this.props;
-    const { results, onLoading } = this.state;
+    const { allBooks, onChangeShelf } = this.props;
+    let { results, onLoading } = this.state;
+
+    // fix the problem that search results don't have `shelf` field, or should sync `shelf`
+    // I think it would be better to fix `update` API
+    for (let i = 0; i < allBooks.length; ++i) {
+      for (let j = 0; j < results.length; ++j) {
+        if (allBooks[i].id === results[j].id)
+          results[j].shelf = allBooks[i].shelf;
+      }
+    }
 
     return (
       <div>

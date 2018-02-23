@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Message } from 'element-react';
 import ListBooks from './ListBooks';
 import SearchBooks from './SearchBooks';
@@ -58,11 +58,8 @@ class BooksApp extends Component {
           <ListBooks allBooks={this.state.books} onChangeShelf={this.changeShelf} />
         )} />
         <Route path="/search" render={() => (
-          <SearchBooks onChangeShelf={this.changeShelf} />
+          <SearchBooks allBooks={this.state.books} onChangeShelf={this.changeShelf} />
         )} />
-        <div className="open-search">
-          <Link to="/search">Add a book</Link>
-        </div>
       </div>
     )
   }
