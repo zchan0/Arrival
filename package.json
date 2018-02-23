@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "element-react": "^1.4.5",
+    "element-theme-default": "^1.4.13",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
